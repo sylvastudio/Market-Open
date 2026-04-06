@@ -24,51 +24,13 @@ This is the kind of thing we build at **Sylva Studio** — technical automation 
 | Production | Netlify (static site + serverless functions) |
 | Data | Yahoo Finance API (v8 chart + screener) |
 
-## Deployment
-
-The app is deployed on **Netlify**. The Express backend is converted into serverless functions for production — no persistent server required.
-
-- `netlify/functions/market-indices.mjs` — proxies Yahoo Finance chart API
-- `netlify/functions/gainers-losers.mjs` — proxies Yahoo Finance screener API
-- `netlify.toml` — build config, API redirects, SPA fallback
-
-Push to `main` and Netlify handles the rest.
-
-## Local Development
-
-```bash
-# Backend
-cd backend && npm install && npm start
-# Runs on http://localhost:4000
-
-# Frontend (in a separate terminal)
-cd frontend && npm install && npm run dev
-# Runs on http://localhost:5173
-```
-
-The Vite dev server proxies `/api` requests to the local Express backend automatically.
-
-## API Endpoints
-
-| Endpoint | Description |
-|----------|-------------|
-| `GET /api/market-indices` | Current index prices and daily change % |
-| `GET /api/gainers-losers` | Top 5 gainers and losers with price data |
-
-Both endpoints cache responses for 15 minutes to stay within Yahoo Finance rate limits.
-
-## Routes
-
-- `/` — Market indices dashboard
-- `/gainers-losers` — Top gainers and losers
-
 ---
 
 ## About Sylva Studio
 
 We build technical automation for teams that are tired of doing things manually. Data pipelines, content generation, API integrations, internal tools — if it's repetitive and technical, we automate it.
 
-**Get in touch:** [github.com/sylvastudio](https://github.com/sylvastudio)
+**Get in touch:** [sylvastudio.com](http://sylvastudio.com)
 
 ## License
 
