@@ -1,154 +1,75 @@
-# Market Open Dashboard
+# Market Open
 
-A modern, responsive dashboard for tracking US market indices and top gainers/losers with a downloadable social media format.
+**Built by [Sylva Studio](https://github.com/sylvastudio) for [OptionsLab.app](https://optionslab.app)** — a daily market snapshot tool that powers their social media content with live financial data.
 
-## Features
+OptionsLab needed an automated way to generate professional, share-ready market graphics for their audience every trading day. Market Open pulls live data, formats it into clean visuals, and lets them download publication-ready images in one click. No manual data entry, no design work, no bottleneck.
 
-### 📊 **Market Indices**
-- Live tracking of key US indices (S&P 500, Dow 30, Nasdaq, Russell 2000, VIX, Gold)
-- Real-time updates every 15 minutes
-- Color-coded positive/negative changes
+This is the kind of thing we build at **Sylva Studio** — technical automation that removes repetitive work and lets teams focus on what matters. If your workflow involves pulling data, generating content, or stitching systems together, we can probably automate it.
 
-### 📈 **Top Gainers & Losers**
-- Top 5 overall gainers and losers
-- Real-time market data from Yahoo Finance
-- Clean, organized display
+---
 
-### 📱 **Downloadable Social Media Format**
-- Optimized for social media sharing
-- Exact dimensions: 1080px width
-- Professional design with consistent branding
-- High-quality PNG export
+## What It Does
+
+- **Market Indices** — Live S&P 500, Dow 30, Nasdaq, Russell 2000, VIX, and Gold data
+- **Top Gainers & Losers** — Top 5 movers in each direction, updated from Yahoo Finance
+- **One-Click Image Export** — Download social-media-ready PNGs (1080px wide, branded layout)
+- **Auto-Refresh** — Data refreshes every 15 minutes with built-in rate limit protection
 
 ## Tech Stack
 
-### Frontend
-- **React 18** - Modern UI framework
-- **React Router** - Client-side routing
-- **Vite** - Fast build tool and dev server
-- **CSS-in-JS** - Styled components for clean styling
+| Layer | Tech |
+|-------|------|
+| Frontend | React 18, React Router, Vite |
+| Backend (local) | Node.js, Express |
+| Production | Netlify (static site + serverless functions) |
+| Data | Yahoo Finance API (v8 chart + screener) |
 
-### Backend
-- **Node.js** - JavaScript runtime
-- **Express** - Web framework
-- **node-fetch** - HTTP client for API requests
-- **CORS** - Cross-origin resource sharing
+## Deployment
 
-## Installation
+The app is deployed on **Netlify**. The Express backend is converted into serverless functions for production — no persistent server required.
 
-1. **Clone the repository**
-   ```bash
-   git clone <repository-url>
-   cd market-open
-   ```
+- `netlify/functions/market-indices.mjs` — proxies Yahoo Finance chart API
+- `netlify/functions/gainers-losers.mjs` — proxies Yahoo Finance screener API
+- `netlify.toml` — build config, API redirects, SPA fallback
 
-2. **Install backend dependencies**
-   ```bash
-   cd backend
-   npm install
-   ```
+Push to `main` and Netlify handles the rest.
 
-3. **Install frontend dependencies**
-   ```bash
-   cd frontend
-   npm install
-   ```
+## Local Development
 
-## Usage
+```bash
+# Backend
+cd backend && npm install && npm start
+# Runs on http://localhost:4000
 
-1. **Start the backend server**
-   ```bash
-   cd backend
-   npm start
-   ```
-   Server will run on `http://localhost:4000`
+# Frontend (in a separate terminal)
+cd frontend && npm install && npm run dev
+# Runs on http://localhost:5173
+```
 
-2. **Start the frontend development server**
-   ```bash
-   cd frontend
-   npm run dev
-   ```
-   Frontend will run on `http://localhost:5173`
-
-3. **Open your browser** and navigate to `http://localhost:5173`
-
-## Routes
-
-- **`/`** - Market Open indices dashboard
-- **`/gainers-losers`** - Top gainers and losers
-- **`/downloadable`** - Social media optimized view
-
-## Downloading Images
-
-1. Navigate to any page
-2. Click the "Download as image" button
-3. The page content will be captured and downloaded as a PNG file
-
-For the downloadable view (`/downloadable`), the image will be in the exact social media format with:
-- 1080px width
-- Professional color scheme (#384D9E background)
-- Optimized layout for sharing
-
-## Features
-
-### ✨ **Enhanced UI**
-- Modern gradient backgrounds
-- Smooth animations and transitions
-- Responsive design for all screen sizes
-- Professional card-based layout
-
-### 🔄 **Real-time Data**
-- Automatic data refresh every 15 minutes
-- Rate limiting protection
-- Error handling and fallbacks
-- Loading states and indicators
-
-### 🎨 **Social Media Ready**
-- Exact dimensions for social platforms
-- Consistent branding and colors
-- High-resolution export
-- Professional typography
+The Vite dev server proxies `/api` requests to the local Express backend automatically.
 
 ## API Endpoints
 
-### Backend API
-- `GET /api/market-indices` - Returns current market indices data
-- `GET /api/gainers-losers` - Returns top gainers and losers
+| Endpoint | Description |
+|----------|-------------|
+| `GET /api/market-indices` | Current index prices and daily change % |
+| `GET /api/gainers-losers` | Top 5 gainers and losers with price data |
 
-### Data Sources
-- **Yahoo Finance** - Primary data source for market data
-- **Caching** - 10-15 minute cache to prevent rate limiting
-- **Fallback** - Graceful handling of API failures
+Both endpoints cache responses for 15 minutes to stay within Yahoo Finance rate limits.
 
-## Browser Support
+## Routes
 
-- Chrome (latest)
-- Firefox (latest)
-- Safari (latest)
-- Edge (latest)
+- `/` — Market indices dashboard
+- `/gainers-losers` — Top gainers and losers
 
-## Contributing
+---
 
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Test thoroughly
-5. Submit a pull request
+## About Sylva Studio
+
+We build technical automation for teams that are tired of doing things manually. Data pipelines, content generation, API integrations, internal tools — if it's repetitive and technical, we automate it.
+
+**Get in touch:** [github.com/sylvastudio](https://github.com/sylvastudio)
 
 ## License
 
-This project is licensed under the MIT License.
-
-## Support
-
-For issues and questions:
-1. Check the existing issues
-2. Create a new issue with detailed description
-3. Include browser version and steps to reproduce
-
-## Notes
-
-- The application uses Yahoo Finance APIs which may have rate limits
-- Data is cached to improve performance and avoid API limits
-- The downloadable format is optimized for social media sharing
-- All styling is responsive and works on mobile devices
+MIT
